@@ -1,0 +1,745 @@
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Transactions</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/images/icon.png">
+  <!-- favicon ends -->
+
+  <!-- LOAD FILES -->
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+
+
+  
+  <!-- custom CSS -->
+  <link rel="stylesheet" href="../static/css/main.css">
+
+  <!-- custom JS -->
+  <script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/js/main.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default hidden-print">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="dashboard" style="margin-top:-15px">
+            <img src="../static/images/icon.png" alt="logo" class="img-responsive" width="40px">
+        </a>
+      </div>
+
+      <!-- Collect the nav links, forms, and other content for toggling -->
+      <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav navbar-left visible-xs">
+          <li class="active">
+            <a href="dashboard">
+              <i class="fa fa-home"></i>
+              Dashboard
+            </a>
+          </li>
+
+          <li class="">
+            <a href="transactions">
+              <i class="fa fa-exchange"></i>
+              Transactions
+            </a>
+          </li>
+
+                      <li class="">
+              <a href="items.html">
+                <i class="fa fa-cart-plus"></i>
+                Inventory Items
+              </a>
+            </li>
+
+            <li class="">
+              <a href="reports">
+                <i class="fa fa-database"></i>
+              Reports
+              </a>
+            </li>
+
+            <li class="">
+              <a href="User_management">
+                <i class="fa fa-user"></i>
+                User Management
+              </a>
+            </li>
+                  </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a>
+              Total Earned Today: <b>Ksh 400,000<span id="totalEarnedToday"></span></b>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user navbarIcons"></i>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-menu-header text-center">
+                <strong>Account</strong>
+              </li>
+              <li class="divider"></li>
+              <!---<li>
+                                    <a href="#">
+                                        <i class="fa fa-gear fa-fw"></i> 
+                                        Settings
+                                    </a>
+                                </li>
+                                <li class="divider"></li>--->
+              <li><a href="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container-fluid hidden-print">
+    <div class="row content">
+      <!-- Left sidebar -->
+      <div class="col-sm-2 sidenav hidden-xs mySideNav">
+        <br>
+        <ul class="nav nav-pills nav-stacked pointer">
+          <li class="active">
+            <a href="dashboard">
+              <i class="fa fa-home"></i>
+              Dashboard
+            </a>
+          </li>
+          <li class="">
+            <a href="transactions">
+              <i class="fa fa-exchange"></i>
+              Transactions
+            </a>
+          </li>
+
+                      <li class="">
+              <a href="items">
+                <i class="fa fa-shopping-cart"></i>
+                Inventory Items
+              </a>
+            </li>
+
+            <li class="">
+              <a href="reports">
+                <i class="fa fa-database"></i>
+                Reports
+              </a>
+            </li>
+
+            <li class="">
+              <a href="user_management">
+                <i class="fa fa-user"></i>
+                User Management
+              </a>
+            </li>
+                  </ul>
+        <br>
+      </div>
+      <!-- Left sidebar ends -->
+      <br>
+
+      <!-- Main content -->
+      <div class="col-sm-10">
+        
+<style href="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/ext/datetimepicker/bootstrap-datepicker.min.css" rel="stylesheet"></style>
+
+<script>
+    var currentItems = {"786":"KICK"};
+</script>
+
+<div class="pwell hidden-print">   
+    <div class="row">
+        <div class="col-sm-12">
+            <!--- Row to create new transaction-->
+            <div class="row">
+                <div class="col-sm-3">
+                    <span class="pointer text-primary">
+                        <button class='btn btn-primary btn-sm' id='showTransForm'><i class="fa fa-plus"></i> New Transaction </button>
+                    </span>
+                </div>
+                <div class="col-sm-3">
+                    <span class="pointer text-primary">
+                        <button class='btn btn-primary btn-sm' data-toggle='modal' data-target='#reportModal'>
+                            <i class="fa fa-newspaper-o"></i> Generate Report 
+                        </button>
+                    </span>
+                </div>
+            </div>
+            <br>
+            <!--- End of row to create new transaction-->
+            <!---form to create new transactions--->
+            <div class="row collapse" id="newTransDiv">
+                <!---div to display transaction form--->
+                <div class="col-sm-12" id="salesTransFormDiv">
+                    <div class="well">
+                        <form name="salesTransForm" id="salesTransForm" role="form">
+                            <div class="text-center errMsg" id='newTransErrMsg'></div>
+                            <br>
+
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <!--Cloned div comes here--->
+                                    <div id="appendClonedDivHere"></div>
+                                    <!--End of cloned div here--->
+                                    
+                                    <!--- Text to click to add another item to transaction-->
+                                    <div class="row">
+                                        <div class="col-sm-2 text-primary pointer">
+                                            <button class="btn btn-primary btn-sm" id="clickToClone"><i class="fa fa-plus"></i> Add item</button>
+                                        </div>
+                                        
+                                        <br class="visible-xs">
+                                        
+                                        <div class="col-sm-2 form-group-sm">
+                                            <input type="text" id="barcodeText" class="form-control" placeholder="item code" autofocus>
+                                            <span class="help-block errMsg" id="itemCodeNotFoundMsg"></span>
+                                        </div>
+                                    </div>
+                                    <!-- End of text to click to add another item to transaction-->
+                                    <br>
+                                    
+                                    <div class="row">
+                                        <div class="col-sm-3 form-group-sm">
+                                            <label for="vat">VAT(%)</label>
+                                            <input type="number" min="0" id="vat" class="form-control" value="0">
+                                        </div>
+                                        
+                                        <div class="col-sm-3 form-group-sm">
+                                            <label for="discount">Discount(%)</label>
+                                            <input type="number" min="0" id="discount" class="form-control" value="0">
+                                        </div>
+                                        
+                                        <div class="col-sm-3 form-group-sm">
+                                            <label for="discount">Discount(value)</label>
+                                            <input type="number" min="0" id="discountValue" class="form-control" value="0">
+                                        </div>
+                                        
+                                        <div class="col-sm-3 form-group-sm">
+                                            <label for="modeOfPayment">Mode of Payment</label>
+                                            <select class="form-control checkField" id="modeOfPayment">
+                                                <option value="">---</option>
+                                                <option value="Cash">Cash</option>
+                                                <option value="POS">POS</option>
+                                                <option value="Cash and POS">Cash and POS</option>
+                                            </select>
+                                            <span class="help-block errMsg" id="modeOfPaymentErr"></span>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="row">
+                                        <div class="col-sm-4 form-group-sm">
+                                            <label for="cumAmount">Cumulative Amount</label>
+                                            <span id="cumAmount" class="form-control">0.00</span>
+                                        </div>
+                                        
+                                        <div class="col-sm-4 form-group-sm">
+                                            <div class="cashAndPos hidden">
+                                                <label for="cashAmount">Cash</label>
+                                                <input type="text" class="form-control" id="cashAmount">
+                                                <span class="help-block errMsg"></span>
+                                            </div>
+
+                                            <div class="cashAndPos hidden">
+                                                <label for="posAmount">POS</label>
+                                                <input type="text" class="form-control" id="posAmount">
+                                                <span class="help-block errMsg"></span>
+                                            </div>
+
+                                            <div id="amountTenderedDiv">
+                                                <label for="amountTendered" id="amountTenderedLabel">Amount Tendered</label>
+                                                <input type="text" class="form-control" id="amountTendered">
+                                                <span class="help-block errMsg" id="amountTenderedErr"></span>
+                                            </div>
+                                        </div>
+                                        
+                                        <div class="col-sm-4 form-group-sm">
+                                            <label for="changeDue">Change Due</label>
+                                            <span class="form-control" id="changeDue"></span>
+                                        </div>
+                                    </div>
+                                        
+                                    <div class="row">
+                                        <div class="col-sm-4 form-group-sm">
+                                            <label for="custName">Customer Name</label>
+                                            <input type="text" id="custName" class="form-control" placeholder="Name">
+                                        </div>
+                                        
+                                        <div class="col-sm-4 form-group-sm">
+                                            <label for="custPhone">Customer Phone</label>
+                                            <input type="tel" id="custPhone" class="form-control" placeholder="Phone Number">
+                                        </div>
+                                        
+                                        <div class="col-sm-4 form-group-sm">
+                                            <label for="custEmail">Customer Email</label>
+                                            <input type="email" id="custEmail" class="form-control" placeholder="E-mail Address">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row">
+                                <div class="col-sm-2 form-group-sm">
+                                    <button class="btn btn-primary btn-sm" id='useScanner'>Use Barcode Scanner</button>
+                                </div>
+                                <br class="visible-xs">
+                                <div class="col-sm-6"></div>
+                                <br class="visible-xs">
+                                <div class="col-sm-4 form-group-sm">
+                                    <button type="button" class="btn btn-primary btn-sm" id="confirmSaleOrder">Confirm Order</button>
+                                    <button type="button" class="btn btn-danger btn-sm" id="cancelSaleOrder">Clear Order</button>
+                                    <button type="button" class="btn btn-danger btn-sm" id="hideTransForm">Close</button>
+                                </div>
+                            </div>
+                        </form><!-- end of form-->
+                    </div>
+                </div>
+                <!-- end of div to display transaction form-->
+            </div>
+            <!--end of form-->
+    
+            <br><br>
+            <!-- sort and co row-->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-3 form-inline form-group-sm">
+                        <label for="transListPerPage">Per Page</label>
+                        <select id="transListPerPage" class="form-control">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-5 form-group-sm form-inline">
+                        <label for="transListSortBy">Sort by</label>
+                        <select id="transListSortBy" class="form-control">
+                            <option value="transDate-DESC">date(Latest First)</option>
+                            <option value="transDate-ASC">date(Oldest First)</option>
+                            <option value="quantity-DESC">Quantity (Highest first)</option>
+                            <option value="quantity-ASC">Quantity (Lowest first)</option>
+                            <option value="totalPrice-DESC">Total Price (Highest first)</option>
+                            <option value="totalPrice-ASC">Total Price (Lowest first)</option>
+                            <option value="totalMoneySpent-DESC">Total Amount Spent (Highest first)</option>
+                            <option value="totalMoneySpent-ASC">Total Amount Spent (Lowest first)</option>
+                        </select>
+                    </div>
+
+                    <div class="col-sm-4 form-inline form-group-sm">
+                        <label for='transSearch'><i class="fa fa-search"></i></label>
+                        <input type="search" id="transSearch" class="form-control" placeholder="Search Transactions">
+                    </div>
+                </div>
+            </div>
+            <!-- end of sort and co div-->
+        </div>
+    </div>
+    
+    <hr>
+<!-- transaction list table-->
+<div class="row">
+  <!-- Transaction list div-->
+  <div class="col-sm-12" id="transListTable">
+      <!-- Transaction list table -->
+      <table class="table table-striped table-bordered">
+          <thead>
+              <tr>
+                  <th>TransactionID</th>
+                  <th>Date</th>
+                  <th>CustomerID</th>
+                  <th>Customer Name</th>
+                  <th>ProductID</th>
+                  <th>ProductName</th>
+                  <th>Quantity</th>
+                  <th>Unit Price (KSh)</th>
+                  <th>Total Price (KSh)</th>
+                  <th>Payment Method</th>
+                  <th>Discounts (KSh)</th>
+                  <th>Tax (KSh)</th>
+                  <th>Net Sales (KSh)</th>
+                  <th>Sales Representative</th>
+                  <th>Payment Status</th>
+                  <th>Additional Notes</th>
+                  <th>Refund/Return Info</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr>
+                  <td>1001</td>
+                  <td>2024-04-01</td>
+                  <td>101</td>
+                  <td>Jane Doe</td>
+                  <td>2001</td>
+                  <td>Shirt</td>
+                  <td>2</td>
+                  <td>1500</td>
+                  <td>3000</td>
+                  <td>Cash</td>
+                  <td>0</td>
+                  <td>150</td>
+                  <td>2850</td>
+                  <td>John Smith</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1002</td>
+                  <td>2024-04-02</td>
+                  <td>102</td>
+                  <td>John Doe</td>
+                  <td>2002</td>
+                  <td>Pants</td>
+                  <td>1</td>
+                  <td>2000</td>
+                  <td>2000</td>
+                  <td>Card</td>
+                  <td>50</td>
+                  <td>200</td>
+                  <td>1850</td>
+                  <td>Emily Johnson</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1003</td>
+                  <td>2024-04-03</td>
+                  <td>103</td>
+                  <td>Michael Brown</td>
+                  <td>2003</td>
+                  <td>Dress</td>
+                  <td>3</td>
+                  <td>1800</td>
+                  <td>5400</td>
+                  <td>Mobile Money</td>
+                  <td>100</td>
+                  <td>250</td>
+                  <td>5050</td>
+                  <td>Sarah Williams</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1004</td>
+                  <td>2024-04-04</td>
+                  <td>104</td>
+                  <td>David Taylor</td>
+                  <td>2004</td>
+                  <td>Shoes</td>
+                  <td>2</td>
+                  <td>2500</td>
+                  <td>5000</td>
+                  <td>Credit Card</td>
+                  <td>0</td>
+                  <td>200</td>
+                  <td>4800</td>
+                  <td>Robert Johnson</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1005</td>
+                  <td>2024-04-05</td>
+                  <td>105</td>
+                  <td>Emily Wilson</td>
+                  <td>2005</td>
+                  <td>Bag</td>
+                  <td>1</td>
+                  <td>1200</td>
+                  <td>1200</td>
+                  <td>Cash</td>
+                  <td>0</td>
+                  <td>150</td>
+                  <td>1050</td>
+                  <td>Michael Clark</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <!-- Add more rows here -->
+              <tr>
+                  <td>1016</td>
+                  <td>2024-04-16</td>
+                  <td>116</td>
+                  <td>James Anderson</td>
+                  <td>2016</td>
+                  <td>Tie</td>
+                  <td>1</td>
+                  <td>800</td>
+                  <td>800</td>
+                  <td>Mobile Money</td>
+                  <td>0</td>
+                  <td>80</td>
+                  <td>720</td>
+                  <td>Linda Brown</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1017</td>
+                  <td>2024-04-17</td>
+                  <td>117</td>
+                  <td>Emma Garcia</td>
+                  <td>2017</td>
+                  <td>Socks</td>
+                  <td>5</td>
+                  <td>150</td>
+                  <td>750</td>
+                  <td>Credit Card</td>
+                  <td>0</td>
+                  <td>100</td>
+                  <td>650</td>
+                  <td>James Smith</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1018</td>
+                  <td>2024-04-18</td>
+                  <td>118</td>
+                  <td>Oliver Martinez</td>
+                  <td>2018</td>
+                  <td>Belt</td>
+                  <td>2</td>
+                  <td>500</td>
+                  <td>1000</td>
+                  <td>Cash</td>
+                  <td>0</td>
+                  <td>50</td>
+                  <td>950</td>
+                  <td>Samantha White</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1019</td>
+                  <td>2024-04-19</td>
+                  <td>119</td>
+                  <td>Lucas Rodriguez</td>
+                  <td>2019</td>
+                  <td>Hat</td>
+                  <td>1</td>
+                  <td>700</td>
+                  <td>700</td>
+                  <td>Card</td>
+                  <td>0</td>
+                  <td>70</td>
+                  <td>630</td>
+                  <td>Isabella Thompson</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+              <tr>
+                  <td>1020</td>
+                  <td>2024-04-20</td>
+                  <td>120</td>
+                  <td>Daniel Moore</td>
+                  <td>2020</td>
+                  <td>Gloves</td>
+                  <td>3</td>
+                  <td>300</td>
+                  <td>900</td>
+                  <td>Mobile Money</td>
+                  <td>0</td>
+                  <td>90</td>
+                  <td>810</td>
+                  <td>Charlotte Lee</td>
+                  <td>Paid</td>
+                  <td>None</td>
+                  <td>N/A</td>
+              </tr>
+          </tbody>
+      </table>
+      <!-- End of transaction list table -->
+  </div>
+  <!-- End of transactions div-->
+</div>
+<!-- End of transactions list table-->
+
+
+
+<div class="row hidden" id="divToClone">
+    <div class="col-sm-4 form-group-sm">
+        <label>Item</label>
+        <select class="form-control selectedItemDefault" onchange="selectedItem(this)"></select>
+    </div>
+
+    <div class="col-sm-2 form-group-sm itemAvailQtyDiv">
+        <label>Available Quantity</label>
+        <span class="form-control itemAvailQty">0</span>
+    </div>
+
+    <div class="col-sm-2 form-group-sm">
+        <label>Unit Price</label>
+        <span class="form-control itemUnitPrice">0.00</span>
+    </div>
+
+    <div class="col-sm-1 form-group-sm itemTransQtyDiv">
+        <label>Quantity</label>
+        <input type="number" min="0" class="form-control itemTransQty" value="0">
+        <span class="help-block itemTransQtyErr errMsg"></span>
+    </div>
+
+    <div class="col-sm-2 form-group-sm">
+        <label>Total Price</label>
+        <span class="form-control itemTotalPrice">0.00</span>
+    </div>
+    
+    <br class="visible-xs">
+    
+    <div class="col-sm-1">
+        <button class="close retrit">&times;</button>
+    </div>
+    
+    <br class="visible-xs">
+</div>
+
+
+<div class="modal fade" id='reportModal' data-backdrop='static' role='dialog'>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="close" data-dismiss='modal'>&times;</div>
+                <h4 class="text-center">Generate Report</h4>
+            </div>
+            
+            <div class="modal-body">
+                <div class="row" id="datePair">
+                    <div class="col-sm-6 form-group-sm">
+                        <label class="control-label">From Date</label>                                    
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" id='transFrom' class="form-control date start" placeholder="YYYY-MM-DD">
+                        </div>
+                        <span class="help-block errMsg" id='transFromErr'></span>
+                    </div>
+
+                    <div class="col-sm-6 form-group-sm">
+                        <label class="control-label">To Date</label>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span><i class="fa fa-calendar"></i></span>
+                            </div>
+                            <input type="text" id='transTo' class="form-control date end" placeholder="YYYY-MM-DD">
+                        </div>
+                        <span class="help-block errMsg" id='transToErr'></span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-footer">
+                <button class="btn btn-success" id='clickToGen'>Generate</button>
+                <button class="btn btn-danger" data-dismiss='modal'>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!---End of copy of div to clone when adding more items to sales transaction---->
+<script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/js/transactions.js"></script>
+<script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/ext/datetimepicker/bootstrap-datepicker.min.js"></script>
+<script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/ext/datetimepicker/jquery.timepicker.min.js"></script>
+<script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/ext/datetimepicker/datepair.min.js"></script>
+<script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/ext/datetimepicker/jquery.datepair.min.js"></script>
+      </div>
+      <!-- Main content ends -->
+    </div>
+  </div>
+
+  <footer class="container-fluid text-center hidden-print">
+    <style>
+        p {
+            font-size: 18px; /* Adjust the font size as needed */
+            font-weight: bold; /* Make the text bold */
+            color: #333; /* Set a darker font color */
+            font-family: 'slab serif', cursive; /* Replace 'Your Floral Font' with the name of your floral font */
+        }
+    
+        a {
+            color: #333; /* Set the same font color for the link */
+            text-decoration: none; /* Remove underline from the link */
+        }
+    
+        a:hover {
+            text-decoration: underline; /* Add underline on hover for the link */
+        }
+    
+        .floral-icon {
+            vertical-align: middle; /* Align the icon vertically with the text */
+            margin-right: 5px; /* Add a small margin to separate the icon from the text */
+        }
+    </style>
+    <p>
+        <img src="../static/images/download.jpeg" alt="Floral Icon" class="floral-icon" width="40px"> <!-- Replace "floral-icon.png" with the path to your floral icon image -->
+        <i class="fa fa-copyright"></i>
+        Copyright <a href="#">Josephat Musyoka</a> (2024)
+    </p>
+  <!--Modal to show flash message-->
+  <div id="flashMsgModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" id="flashMsgHeader">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <center><i id="flashMsgIcon"></i>
+            <font id="flashMsg"></font>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal end-->
+  <!--modal to display transaction receipt when a transaction's ref is clicked on the transaction list table -->
+  <div class="modal fade" role='dialog' data-backdrop='static' id="transReceiptModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header hidden-print">
+          <button class="close" data-dismiss='modal'>&times;</button>
+          <h4 class="text-center">Transaction Receipt</h4>
+        </div>
+        <div class="modal-body" id='transReceipt'></div>
+      </div>
+    </div>
+  </div>
+  <!-- End of modal-->
+</body>
+
+</html>

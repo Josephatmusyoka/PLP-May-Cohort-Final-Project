@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title> UCIMS Register</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+    <script src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    <link rel="icon" type="image/png" href="{{ url_for('static', filename='images/icon.png') }}">
+</head>
+<body>
+    <div class="container">
+        <h2>UCIMS Registration</h2>
+        <form action="/register" method="post" enctype="multipart/form-data" id="registerForm">
+            <label for="username">Username:</label><br>
+            <input type="text" id="username" name="username" required><br><br>
+            
+            <label for="password">Password:</label><br>
+            <input type="password" id="password" name="password" required autocomplete="current-password">
+            
+            <label for="full_name">Full Name:</label><br>
+            <input type="text" id="full_name" name="full_name" required><br><br>
+            
+            <label for="email">Email:</label><br>
+            <input type="email" id="email" name="email" required><br><br>
+            
+            <label for="role">Role:</label><br>
+            <input type="text" id="role" name="role" required><br><br>
+            
+            <label for="profilePic">Profile Picture:</label><br>
+            <input type="file" id="profilePic" name="profilePic"><br><br>
+            
+            <input type="submit" value="Register">
+        </form>
+        <p>Already registered? <a href="/login">Login here</a></p>
+    </div>
+</body>
+</html>

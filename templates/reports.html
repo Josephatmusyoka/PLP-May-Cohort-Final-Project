@@ -1,0 +1,317 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Reports</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/images/icon.png">
+  <!-- favicon ends -->
+
+  <!-- LOAD FILES -->
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+  
+  <!-- custom CSS -->
+  <link rel="stylesheet" href="../static/css/main.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+        table {
+            width: 80%; /* Set the width of the table */
+            margin: 0 auto; /* Center the table horizontally */
+            border-collapse: collapse;
+            margin-bottom: 20px; /* Add margin at the bottom to separate from chart */
+        }
+        th, td {
+            border: 1px solid #dddddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        canvas {
+            display: block;
+            margin: 0 auto; /* Center the canvas */
+        }
+    </style>
+
+  <!-- custom JS -->
+  <script src="../static/js/main.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default hidden-print">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="dashboard" style="margin-top:-15px">
+          <img src="../static/images/icon.png" alt="logo" class="img-responsive" width="40px">
+        </a>
+      </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+       <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav navbar-left visible-xs">
+          <li class="active">
+            <a href="dashboard">
+              <i class="fas fa-home"></i>
+              Dashboard
+            </a>
+          </li>
+
+          <li class="">
+           <iframe src="/transactions" width="100%" height="600px" frameborder="0"></iframe>
+              <i class="fas fa-exchange"></i>
+              Transactions
+            </a>
+          </li>
+
+          <li class="">
+            <a href="/items">
+              <i class="fas fa-cart-plus"></i>
+              Inventory Items
+            </a>
+          </li>
+
+          <li class="">
+            <a href="/reports">
+              <i class="fas fa-database"></i>
+              Reports
+            </a>
+          </li>
+
+          <li class="">
+            <a href="/user_management">
+              <i class="fas fa-user"></i>
+              User Management
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a>
+              Total Earned Today: <b>Ksh 400,000<span id="totalEarnedToday"></span></b>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user navbarIcons"></i>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-menu-header text-center">
+                <strong>Account</strong>
+              </li>
+              <li class="divider"></li>
+              <!---<li>
+                                    <a href="#">
+                                        <i class="fa fa-gear fa-fw"></i> 
+                                        Settings
+                                    </a>
+                                </li>
+                                <li class="divider"></li>--->
+              <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav> 
+
+<div class="container-fluid hidden-print">
+  <div class="row content">
+    <!-- Left sidebar -->
+    <div class="col-sm-2 sidenav hidden-xs mySideNav">
+      <br>
+      <ul class="nav nav-pills nav-stacked pointer">
+        <li class="active">
+          <a href="dashboard">
+            <i class="fa fa-home"></i>
+            Dashboard
+          </a>
+        </li>
+        <li class="">
+          <a href="/transactions">
+            <i class="fa fa-exchange"></i>
+            Transactions
+          </a>
+        </li>
+
+                    <li class="">
+            <a href="items">
+              <i class="fa fa-shopping-cart"></i>
+              Inventory Items
+            </a>
+          </li>
+
+          <li class="">
+            <a href="reports">
+              <i class="fa fa-database"></i>
+              Reports
+            </a>
+          </li>
+
+          <li class="">
+            <a href="user_management">
+              <i class="fa fa-user"></i>
+              User Management
+            </a>
+          </li>
+                </ul>
+      <br>
+    </div>
+    <!-- Left sidebar ends -->
+    <br>
+<script src="../static/js/main.js"></script> 
+
+<h1>Sales Report</h1>
+<canvas id="salesChart" width="800" height="400"></canvas>
+
+<table>
+    <tr>
+        <th>Report ID</th>
+        <th>Report Date</th>
+        <th>Total Sales</th>
+        <th>Total Cost</th>
+        <th>Gross Profit</th>
+        <th>Total Expenses</th>
+        <th>Net Profit</th>
+        <th>Total Tax</th>
+        <th>Total VAT</th>
+        <th>Total Customers</th>
+        <th>Total Products</th>
+        <th>Total Transactions</th>
+        <th>Top Selling Product</th>
+        <th>Top Customer</th>
+    </tr>
+    {% for row in sales_data %}
+    <tr>
+        <td>{{ row[0] }}</td> <!-- Report ID -->
+        <td>{{ row[1] }}</td> <!-- Report Date -->
+        <td>{{ row[2] }}</td> <!-- Total Sales -->
+        <td>{{ row[3] }}</td> <!-- Total Cost -->
+        <td>{{ row[4] }}</td> <!-- Gross Profit -->
+        <td>{{ row[5] }}</td> <!-- Total Expenses -->
+        <td>{{ row[6] }}</td> <!-- Net Profit -->
+        <td>{{ row[7] }}</td> <!-- Total Tax -->
+        <td>{{ row[8] }}</td> <!-- Total VAT -->
+        <td>{{ row[9] }}</td> <!-- Total Customers -->
+        <td>{{ row[10] }}</td> <!-- Total Products -->
+        <td>{{ row[11] }}</td> <!-- Total Transactions -->
+        <td>{{ row[12] }}</td> <!-- Top Selling Product -->
+        <td>{{ row[13] }}</td> <!-- Top Customer -->
+    </tr>
+    {% endfor %}
+</table>
+
+    <script>
+        // Extract data for chart (example)
+        var reportIDs = [{% for row in sales_data %} '{{ row[0] }}', {% endfor %}];
+        var totalSales = [{% for row in sales_data %} {{ row[2] }}, {% endfor %}];
+
+        // Configure and render the bar chart
+        var ctx = document.getElementById('salesChart').getContext('2d');
+        var salesChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: reportIDs,
+                datasets: [{
+                    label: 'Total Sales',
+                    data: totalSales,
+                    backgroundColor: 'rgba(54, 162, 235, 0.5)', // Blue color with transparency
+                    borderColor: 'rgba(54, 162, 235, 1)', // Solid blue color
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+    </script>
+
+  <footer class="container-fluid text-center hidden-print">
+    <style>
+      p {
+          font-size: 18px; /* Adjust the font size as needed */
+          font-weight: bold; /* Make the text bold */
+          color: #333; /* Set a darker font color */
+          font-family: 'slab serif', cursive; /* Replace 'Your Floral Font' with the name of your floral font */
+      }
+  
+      a {
+          color: #333; /* Set the same font color for the link */
+          text-decoration: none; /* Remove underline from the link */
+      }
+  
+      a:hover {
+          text-decoration: underline; /* Add underline on hover for the link */
+      }
+  
+      .floral-icon {
+          vertical-align: middle; /* Align the icon vertically with the text */
+          margin-right: 5px; /* Add a small margin to separate the icon from the text */
+      }
+  </style>
+  
+  <p>
+      <img src="../static/images/download.jpeg" alt="Floral Icon" class="floral-icon" width="40px"> <!-- Replace "floral-icon.png" with the path to your floral icon image -->
+      <i class="fa fa-copyright"></i>
+      Copyright <a href="#">Josephat Musyoka</a> (2024)
+  </p>
+  
+  </footer>
+
+  <!--Modal to show flash message-->
+  <div id="flashMsgModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" id="flashMsgHeader">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <center><i id="flashMsgIcon"></i>
+            <font id="flashMsg"></font>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal end-->
+
+  <!--modal to display transaction receipt when a transaction's ref is clicked on the transaction list table -->
+  <div class="modal fade" role='dialog' data-backdrop='static' id="transReceiptModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header hidden-print">
+          <button class="close" data-dismiss='modal'>&times;</button>
+          <h4 class="text-center">Transaction Receipt</h4>
+        </div>
+        <div class="modal-body" id='transReceipt'></div>
+      </div>
+    </div>
+  </div>
+  <!-- End of modal-->
+
+</body>
+
+</html>

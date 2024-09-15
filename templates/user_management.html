@@ -1,0 +1,616 @@
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Users Management</title>
+
+  <!-- Favicon -->
+  <link rel="shortcut icon" href="../static/images/icon.png">
+  <!-- favicon ends -->
+
+  <!-- LOAD FILES -->
+  
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+
+  
+  <!-- custom CSS -->
+  <link rel="stylesheet" href="../static/css/main.css">
+
+  <!-- custom JS -->
+  <script src="../static/js/main.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default hidden-print">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="dashboard" style="margin-top:-15px">
+          <img src="../static/images/icon.png" alt="logo" class="img-responsive" width="40px">
+        </a>
+      </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+       <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav navbar-left visible-xs">
+          <li class="active">
+            <a href="dashboard">
+              <i class="fas fa-home"></i>
+              Dashboard
+            </a>
+          </li>
+
+          <li class="">
+           <iframe src="/transactions" width="100%" height="600px" frameborder="0"></iframe>
+              <i class="fas fa-exchange"></i>
+              Transactions
+            </a>
+          </li>
+
+          <li class="">
+            <a href="/items">
+              <i class="fas fa-cart-plus"></i>
+              Inventory Items
+            </a>
+          </li>
+
+          <li class="">
+            <a href="/reports">
+              <i class="fas fa-database"></i>
+              Reports
+            </a>
+          </li>
+
+          <li class="">
+            <a href="/user_management">
+              <i class="fas fa-user"></i>
+              User Management
+            </a>
+          </li>
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a>
+              Total Earned Today: <b>Ksh 400,000<span id="totalEarnedToday"></span></b>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user navbarIcons"></i>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-menu-header text-center">
+                <strong>Account</strong>
+              </li>
+              <li class="divider"></li>
+              <!---<li>
+                                    <a href="#">
+                                        <i class="fa fa-gear fa-fw"></i> 
+                                        Settings
+                                    </a>
+                                </li>
+                                <li class="divider"></li>--->
+              <li><a href="/logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav> 
+
+<div class="container-fluid hidden-print">
+  <div class="row content">
+    <!-- Left sidebar -->
+    <div class="col-sm-2 sidenav hidden-xs mySideNav">
+      <br>
+      <ul class="nav nav-pills nav-stacked pointer">
+        <li class="active">
+          <a href="dashboard">
+            <i class="fa fa-home"></i>
+            Dashboard
+          </a>
+        </li>
+        <li class="">
+          <a href="/transactions">
+            <i class="fa fa-exchange"></i>
+            Transactions
+          </a>
+        </li>
+
+                    <li class="">
+            <a href="items">
+              <i class="fa fa-shopping-cart"></i>
+              Inventory Items
+            </a>
+          </li>
+
+          <li class="">
+            <a href="reports">
+              <i class="fa fa-database"></i>
+              Reports
+            </a>
+          </li>
+
+          <li class="">
+            <a href="user_management">
+              <i class="fa fa-user"></i>
+              User Management
+            </a>
+          </li>
+                </ul>
+      <br>
+    </div>
+    <!-- Left sidebar ends -->
+    <br>
+
+      <!-- Main content -->
+      <div class="col-sm-10">
+        
+<div class="row hidden-print">
+    <div class="col-sm-12">
+        <div class="pwell">
+            <!-- Header (add new admin, sort order etc.) -->
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="col-sm-2 fa fa-user-plus pointer" style="color:#337ab7" data-target='#addNewAdminModal' data-toggle='modal'>
+                        New User
+                    </div>
+                    <div class="col-sm-3 form-inline form-group-sm">
+                        <label for="adminListPerPage">Show</label>
+                        <select id="adminListPerPage" class="form-control">
+                            <option value="1">1</option>
+                            <option value="5">5</option>
+                            <option value="10" selected>10</option>
+                            <option value="15">15</option>
+                            <option value="20">20</option>
+                            <option value="30">30</option>
+                            <option value="50">50</option>
+                            <option value="100">100</option>
+                        </select>
+                        <label for="adminListPerPage">per page</label>
+                    </div>
+                    <div class="col-sm-4 form-inline form-group-sm">
+                        <label for="adminListSortBy" class="control-label">Sort by</label> 
+                        <select id="adminListSortBy" class="form-control">
+                            <option value="first_name-ASC" selected>Name (A to Z)</option>
+                            <option value="first_name-DESC">Name (Z to A)</option>
+                            <option value="created_on-ASC">Date Created (older first)</option>
+                            <option value="created_on-DESC">Date Created (recent first)</option>
+                            <option value="email-ASC">E-mail - ascending</option>
+                            <option value="email-DESC">E-mail - descending</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-3 form-inline form-group-sm">
+                        <label for="adminSearch"><i class="fa fa-search"></i></label>
+                        <input type="search" id="adminSearch" placeholder="Search...." class="form-control">
+                    </div>
+                </div>
+            </div>
+            
+            <hr>
+            <!-- Header (sort order etc.) ends -->
+            
+            <!-- Admin list -->
+            <div class="row">
+                <div class="col-sm-12" id="allAdmin"></div>
+            </div>
+            <!-- Admin list ends -->
+        </div>
+    </div>
+</div>
+
+
+<!--- Modal to add new admin --->
+<div class='modal fade' id='addNewAdminModal' role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class='modal-header'>
+                <button class="close" data-dismiss='modal'>&times;</button>
+                <h4 class="text-center">Add New User</h4>
+                <div class="text-center">
+                    <i id="fMsgIcon"></i><span id="fMsg"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id='addNewAdminForm' name='addNewAdminForm' role='form'>
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for='firstName' class="control-label">First Name</label>
+                            <input type="text" id='firstName' class="form-control checkField" placeholder="First Name">
+                            <span class="help-block errMsg" id="firstNameErr"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for='lastName' class="control-label">Last Name</label>
+                            <input type="text" id='lastName' class="form-control checkField" placeholder="Last Name">
+                            <span class="help-block errMsg" id="lastNameErr"></span>
+                        </div>
+                    </div>
+                    
+                    
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for='email' class="control-label">Email</label>
+                            <input type="email" id='email' class="form-control checkField" placeholder="Email">
+                            <span class="help-block errMsg" id="emailErr"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for='role' class="control-label">Role</label>
+                            <select class="form-control checkField" id='role'>
+                                <option value=''>Role</option>
+                                <option value='Super'>Super</option>
+                                <option value='Basic'>Basic</option>
+                            </select>
+                            <span class="help-block errMsg" id="roleErr"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for='mobile1' class="control-label">Phone Number</label>
+                            <input type="tel" id='mobile1' class="form-control checkField" placeholder="Phone Number">
+                            <span class="help-block errMsg" id="mobile1Err"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for='mobile2' class="control-label">Other Number</label>
+                            <input type="tel" id='mobile2' class="form-control" placeholder="Other Number (optional)">
+                            <span class="help-block errMsg" id="mobile2Err"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for="passwordOrig" class="control-label">Password:</label>
+                            <input type="password" class="form-control checkField" id="passwordOrig" placeholder="Password">
+                            <span class="help-block errMsg" id="passwordOrigErr"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for="passwordDup" class="control-label">Retype Password:</label>
+                            <input type="password" class="form-control checkField" id="passwordDup" placeholder="Retype Password">
+                            <span class="help-block errMsg" id="passwordDupErr"></span>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" form="addNewAdminForm" class="btn btn-warning pull-left">Reset Form</button>
+                <button type='button' id='addAdminSubmit' class="btn btn-primary">Add User</button>
+                <button type='button' class="btn btn-danger" data-dismiss='modal'>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--- end of modal to add new admin --->
+<h3 style="font-weight: bold; text-align: center;">Users Table</h3>
+<table class="table table-bordered">
+  <thead>
+      <tr>
+          <th>User ID</th>
+          <th>Username</th>
+          <th>Password</th>
+          <th>Full Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Registration Date</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>john_doe</td>
+          <td>********</td>
+          <td>John Doe</td>
+          <td>john@example.com</td>
+          <td>Admin</td>
+          <td>2024-04-07 10:00:00</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>jane_smith</td>
+          <td>********</td>
+          <td>Jane Smith</td>
+          <td>jane@example.com</td>
+          <td>Employee</td>
+          <td>2024-04-07 11:30:00</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>alex_jones</td>
+          <td>********</td>
+          <td>Alex Jones</td>
+          <td>alex@example.com</td>
+          <td>Manager</td>
+          <td>2024-04-07 13:45:00</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>sara_brown</td>
+          <td>********</td>
+          <td>Sara Brown</td>
+          <td>sara@example.com</td>
+          <td>Employee</td>
+          <td>2024-04-07 15:20:00</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>michael_smith</td>
+          <td>********</td>
+          <td>Michael Smith</td>
+          <td>michael@example.com</td>
+          <td>Admin</td>
+          <td>2024-04-08 09:10:00</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>emily_wilson</td>
+          <td>********</td>
+          <td>Emily Wilson</td>
+          <td>emily@example.com</td>
+          <td>Employee</td>
+          <td>2024-04-08 10:45:00</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>adam_miller</td>
+          <td>********</td>
+          <td>Adam Miller</td>
+          <td>adam@example.com</td>
+          <td>Manager</td>
+          <td>2024-04-08 12:30:00</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>sophia_clark</td>
+          <td>********</td>
+          <td>Sophia Clark</td>
+          <td>sophia@example.com</td>
+          <td>Employee</td>
+          <td>2024-04-08 14:15:00</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>william_baker</td>
+          <td>********</td>
+          <td>William Baker</td>
+          <td>william@example.com</td>
+          <td>Admin</td>
+          <td>2024-04-09 09:30:00</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>olivia_davis</td>
+          <td>********</td>
+          <td>Olivia Davis</td>
+          <td>olivia@example.com</td>
+          <td>Employee</td>
+          <td>2024-04-09 11:00:00</td>
+      </tr>
+  </tbody>
+</table>
+<h3 style="font-weight: bold; text-align: center;">Suppliers Table</h3>
+<table class="table table-bordered">
+
+  <thead>
+      <tr>
+          <th>Supplier ID</th>
+          <th>Supplier Name</th>
+          <th>Email</th>
+          <th>Phone</th>
+      </tr>
+  </thead>
+  <tbody>
+      <tr>
+          <td>1</td>
+          <td>ABC Suppliers</td>
+          <td>abc@example.com</td>
+          <td>1234567890</td>
+      </tr>
+      <tr>
+          <td>2</td>
+          <td>XYZ Traders</td>
+          <td>xyz@example.com</td>
+          <td>9876543210</td>
+      </tr>
+      <tr>
+          <td>3</td>
+          <td>Global Distributors</td>
+          <td>global@example.com</td>
+          <td>4567890123</td>
+      </tr>
+      <tr>
+          <td>4</td>
+          <td>City Supplies</td>
+          <td>city@example.com</td>
+          <td>7890123456</td>
+      </tr>
+      <tr>
+          <td>5</td>
+          <td>Superior Imports</td>
+          <td>superior@example.com</td>
+          <td>2345678901</td>
+      </tr>
+      <tr>
+          <td>6</td>
+          <td>Best Deals</td>
+          <td>best@example.com</td>
+          <td>8901234567</td>
+      </tr>
+      <tr>
+          <td>7</td>
+          <td>Prime Suppliers</td>
+          <td>prime@example.com</td>
+          <td>5678901234</td>
+      </tr>
+      <tr>
+          <td>8</td>
+          <td>Quality Traders</td>
+          <td>quality@example.com</td>
+          <td>9012345678</td>
+      </tr>
+      <tr>
+          <td>9</td>
+          <td>Golden Exports</td>
+          <td>golden@example.com</td>
+          <td>6789012345</td>
+      </tr>
+      <tr>
+          <td>10</td>
+          <td>Star Imports</td>
+          <td>star@example.com</td>
+          <td>0123456789</td>
+      </tr>
+  </tbody>
+</table>
+
+
+<!--- Modal for editing admin details --->
+<div class='modal fade' id='editAdminModal' role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class='modal-header'>
+                <button class="close" data-dismiss='modal'>&times;</button>
+                <h4 class="text-center">Edit Admin Info</h4>
+                <div class="text-center">
+                    <i id="fMsgEditIcon"></i>
+                    <span id="fMsgEdit"></span>
+                </div>
+            </div>
+            <div class="modal-body">
+                <form id='editAdminForm' name='editAdminForm' role='form'>
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for='firstNameEdit' class="control-label">First Name</label>
+                            <input type="text" id='firstNameEdit' class="form-control checkField" placeholder="First Name">
+                            <span class="help-block errMsg" id="firstNameEditErr"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for='lastNameEdit' class="control-label">Last Name</label>
+                            <input type="text" id='lastNameEdit' class="form-control checkField" placeholder="Last Name">
+                            <span class="help-block errMsg" id="lastNameEditErr"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for='emailEdit' class="control-label">Email</label>
+                            <input type="email" id='emailEdit' class="form-control checkField" placeholder="Email">
+                            <span class="help-block errMsg" id="emailEditErr"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for='roleEdit' class="control-label">Role</label>
+                            <select class="form-control checkField" id='roleEdit'>
+                                <option value=''>Role</option>
+                                <option value='Super'>Super</option>
+                                <option value='Basic'>Basic</option>
+                            </select>
+                            <span class="help-block errMsg" id="roleEditErr"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="form-group-sm col-sm-6">
+                            <label for='mobile1Edit' class="control-label">Phone Number</label>
+                            <input type="tel" id='mobile1Edit' class="form-control checkField" placeholder="Phone Number">
+                            <span class="help-block errMsg" id="mobile1EditErr"></span>
+                        </div>
+                        <div class="form-group-sm col-sm-6">
+                            <label for='mobile2Edit' class="control-label">Other Number</label>
+                            <input type="tel" id='mobile2Edit' class="form-control" placeholder="Other Number (optional)">
+                            <span class="help-block errMsg" id="mobile2EditErr"></span>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="adminId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="reset" form="editAdminForm" class="btn btn-warning pull-left">Reset Form</button>
+                <button type='button' id='editAdminSubmit' class="btn btn-primary">Update</button>
+                <button type='button' class="btn btn-danger" data-dismiss='modal'>Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--- end of modal to edit admin details --->
+<script src="https://1410inc.xyz/mini-inventory-and-sales-management-system/public/js/admin.js"></script>      </div>
+      <!-- Main content ends -->
+    </div>
+  </div>
+
+  <footer class="container-fluid text-center hidden-print">
+    <style>
+      p {
+          font-size: 18px; /* Adjust the font size as needed */
+          font-weight: bold; /* Make the text bold */
+          color: #333; /* Set a darker font color */
+          font-family: 'slab serif', cursive; /* Replace 'Your Floral Font' with the name of your floral font */
+      }
+  
+      a {
+          color: #333; /* Set the same font color for the link */
+          text-decoration: none; /* Remove underline from the link */
+      }
+  
+      a:hover {
+          text-decoration: underline; /* Add underline on hover for the link */
+      }
+  
+      .floral-icon {
+          vertical-align: middle; /* Align the icon vertically with the text */
+          margin-right: 5px; /* Add a small margin to separate the icon from the text */
+      }
+  </style>
+  
+  <p>
+      <img src="../static/images/download.jpeg" alt="Floral Icon" class="floral-icon" width="40px"> <!-- Replace "floral-icon.png" with the path to your floral icon image -->
+      <i class="fa fa-copyright"></i>
+      Copyright <a href="#">Josephat Musyoka</a> (2024)
+  </p>
+  
+  </footer>
+  <!--Modal to show flash message-->
+  <div id="flashMsgModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" id="flashMsgHeader">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <center><i id="flashMsgIcon"></i>
+            <font id="flashMsg"></font>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal end-->
+
+  <!--modal to display transaction receipt when a transaction's ref is clicked on the transaction list table -->
+  <div class="modal fade" role='dialog' data-backdrop='static' id="transReceiptModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header hidden-print">
+          <button class="close" data-dismiss='modal'>&times;</button>
+          <h4 class="text-center">Transaction Receipt</h4>
+        </div>
+        <div class="modal-body" id='transReceipt'></div>
+      </div>
+    </div>
+  </div>
+  <!-- End of modal-->
+</body>
+
+</html>

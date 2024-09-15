@@ -1,0 +1,753 @@
+
+<!DOCTYPE HTML>
+<html>
+
+<head>
+  <title>Items</title>
+
+   <!-- Favicon -->
+   <link rel="shortcut icon" href="../static/images/icon.png">
+   <!-- favicon ends -->
+ 
+   <!-- LOAD FILES -->
+  
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome-animation/0.0.8/font-awesome-animation.min.css">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css">
+
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+   <script src="../static/js/items.js"></script>      </div>
+
+   <!-- custom CSS -->
+   <link rel="stylesheet" href="../static/css/main.css">
+
+  <!-- custom JS -->
+  <script src="../static//js/main.js"></script>
+</head>
+
+<body>
+  <nav class="navbar navbar-default hidden-print">
+    <div class="container-fluid">
+      <!-- Brand and toggle get grouped for better mobile display -->
+      <div class="navbar-header">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbarCollapse" aria-expanded="false">
+          <span class="sr-only">Toggle navigation</span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+          <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="#" style="margin-top:-15px">
+            <img src="../static/images/icon.png" alt="logo" class="img-responsive" width="40px">
+        </a>
+      </div>
+
+       <!-- Collect the nav links, forms, and other content for toggling -->
+       <div class="collapse navbar-collapse" id="navbarCollapse">
+        <ul class="nav navbar-nav navbar-left visible-xs">
+          <li class="active">
+            <a href="dashboard">
+              <i class="fa fa-home"></i>
+              Dashboard
+            </a>
+          </li>
+
+          <li class="">
+            <a href="transactions">
+              <i class="fa fa-exchange"></i>
+              Transactions
+            </a>
+          </li>
+
+                      <li class="">
+              <a href="items">
+                <i class="fa fa-cart-plus"></i>
+                Inventory Items
+              </a>
+            </li>
+
+            <li class="">
+              <a href="reports">
+                <i class="fa fa-database"></i>
+              Reports
+              </a>
+            </li>
+
+            <li class="">
+              <a href="User_management">
+                <i class="fa fa-user"></i>
+                User Management
+              </a>
+            </li>
+                  </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a>
+              Total Earned Today: <b>Ksh 400,000<span id="totalEarnedToday"></span></b>
+            </a>
+          </li>
+          <li class="dropdown">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-user navbarIcons"></i>
+              <span class="caret"></span>
+            </a>
+            <ul class="dropdown-menu">
+              <li class="dropdown-menu-header text-center">
+                <strong>Account</strong>
+              </li>
+              <li class="divider"></li>
+              <!---<li>
+                                    <a href="#">
+                                        <i class="fa fa-gear fa-fw"></i> 
+                                        Settings
+                                    </a>
+                                </li>
+                                <li class="divider"></li>--->
+              <li><a href="logout"><i class="fa fa-sign-out"></i> Logout</a></li>
+            </ul>
+          </li>
+        </ul>
+      </div><!-- /.navbar-collapse -->
+    </div><!-- /.container-fluid -->
+  </nav>
+
+  <div class="container-fluid hidden-print">
+    <div class="row content">
+      <!-- Left sidebar -->
+      <div class="col-sm-2 sidenav hidden-xs mySideNav">
+        <br>
+        <ul class="nav nav-pills nav-stacked pointer">
+          <li class="active">
+            <a href="dashboard">
+              <i class="fa fa-home"></i>
+              Dashboard
+            </a>
+          </li>
+          <li class="">
+            <a href="transactions">
+              <i class="fa fa-exchange"></i>
+              Transactions
+            </a>
+          </li>
+
+                      <li class="">
+              <a href="items">
+                <i class="fa fa-shopping-cart"></i>
+                Inventory Items
+              </a>
+            </li>
+
+            <li class="">
+              <a href="reports">
+                <i class="fa fa-database"></i>
+                Reports
+              </a>
+            </li>
+
+            <li class="">
+              <a href="user_management">
+                <i class="fa fa-user"></i>
+                User Management
+              </a>
+            </li>
+                  </ul>
+        <br>
+      </div>
+      <!-- Left sidebar ends -->
+      <br>
+
+<!-- Main content -->
+<div class="col-sm-10">
+    <div class="pwell hidden-print">   
+        <div class="row">
+            <div class="col-sm-12">
+                <!-- sort and co row-->
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="col-sm-2 form-inline form-group-sm">
+                            <button class="btn btn-primary btn-sm" id='createItem'>Add New Item</button>
+                        </div>
+
+                        <div class="col-sm-3 form-inline form-group-sm">
+                            <label for="itemsListPerPage">Show</label>
+                            <select id="itemsListPerPage" class="form-control">
+                                <option value="1">1</option>
+                                <option value="5">5</option>
+                                <option value="10" selected>10</option>
+                                <option value="15">15</option>
+                                <option value="20">20</option>
+                                <option value="30">30</option>
+                                <option value="50">50</option>
+                                <option value="100">100</option>
+                            </select>
+                            <label>per page</label>
+                        </div>
+
+                        <div class="col-sm-4 form-group-sm form-inline">
+                            <label for="itemsListSortBy">Sort by</label>
+                            <select id="itemsListSortBy" class="form-control">
+                                <option value="ProductName-ASC">Product Name (A-Z)</option>
+                                <option value="ProductID-ASC">Product ID (Ascending)</option>
+                                <option value="Cost_Price-DESC">Cost Price (Highest first)</option>
+                                <option value="Stock_Quantity-DESC">Stock Quantity (Highest first)</option>
+                                <option value="ProductName-DESC">Product Name (Z-A)</option>
+                                <option value="ProductID-DESC">Product ID (Descending)</option>
+                                <option value="Cost_Price-ASC">Cost Price (lowest first)</option>
+                                <option value="Stock_Quantity-ASC">Stock Quantity (lowest first)</option>
+                            </select>
+                        </div>
+
+                        <div class="col-sm-3 form-inline form-group-sm">
+                            <label for='itemSearch'><i class="fa fa-search"></i></label>
+                            <input type="search" id="itemSearch" class="form-control" placeholder="Search Items">
+                        </div>
+                    </div>
+                </div>
+                <!-- end of sort and co div-->
+            </div>
+        </div>
+
+        <!-- row of adding new item form and items list table-->
+        <div class="row">
+            <div class="col-sm-12">
+                <!--Form to add/update a product-->
+                <div class="col-sm-4 hidden" id='createNewItemDiv'>
+                    <div class="well">
+                        <button class="btn btn-info btn-xs pull-left" id="useBarcodeScanner">Use Scanner</button>
+                        <button class="close cancelAddItem">&times;</button><br>
+                        <form name="addNewProductForm" id="addNewProductForm" role="form">
+                            <div class="text-center errMsg" id='addProductErrMsg'></div>
+                            
+                            <br>
+                            
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="ProductID">Product ID</label>
+                                    <input type="text" id="ProductID" name="ProductID" placeholder="Product ID" class="form-control" required>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="ProductName">Product Name</label>
+                                    <input type="text" id="ProductName" name="ProductName" placeholder="Product Name" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="Category">Category</label>
+                                    <input type="text" id="Category" name="Category" placeholder="Category" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="Cost_Price">Cost Price</label>
+                                    <input type="text" id="Cost_Price" name="Cost_Price" placeholder="Cost Price" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="Wholesale_Price">Wholesale Price</label>
+                                    <input type="text" id="Wholesale_Price" name="Wholesale_Price" placeholder="Wholesale Price" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="SupplierID">Supplier ID</label>
+                                    <input type="text" id="SupplierID" name="SupplierID" placeholder="Supplier ID" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="Description" class="">Description (Optional)</label>
+                                    <textarea class="form-control" id="Description" name="Description" rows='4' placeholder="Optional Description"></textarea>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="Stock_Quantity">Stock Quantity</label>
+                                    <input type="number" id="Stock_Quantity" name="Stock_Quantity" placeholder="Stock Quantity" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-12 form-group-sm">
+                                    <label for="Reorder_Level">Reorder Level</label>
+                                    <input type="number" id="Reorder_Level" name="Reorder_Level" placeholder="Reorder Level" class="form-control" required>
+                                </div>
+                            </div>
+
+                            <br>
+                            <div class="row text-center">
+                                <div class="col-sm-6 form-group-sm">
+                                    <button class="btn btn-primary btn-sm" id="addNewProduct">Add Product</button>
+                                </div>
+
+                                <div class="col-sm-6 form-group-sm">
+                                    <button type="reset" id="cancelAddProduct" class="btn btn-danger btn-sm cancelAddItem" form='addNewProductForm'>Cancel</button>
+                                </div>
+                            </div>
+                        </form><!-- end of form-->
+                    </div>
+                </div>
+                
+<!-- Product list div-->
+<div class="col-sm-12" id="productsListDiv">
+  <!-- Product list Table-->
+  <div class="row">
+      <div class="col-sm-12" id="productsListTable">
+          <!-- Table to display 20 items based on Kenya -->
+          <table class="table table-bordered">
+              <thead>
+                  <tr>
+                      <th>ProductID</th>
+                      <th>ProductName</th>
+                      <th>Category</th>
+                      <th>Cost Price (KES)</th>
+                      <th>Wholesale Price (KES)</th>
+                      <th>SupplierID</th>
+                      <th>Description</th>
+                      <th>Stock Quantity</th>
+                      <th>Reorder Level</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <!-- Rows for displaying 20 items -->
+                  <tr>
+                      <td>001</td>
+                      <td>Kenyan Dress 1</td>
+                      <td>Traditional Clothing</td>
+                      <td>5000 KES</td>
+                      <td>8000 KES</td>
+                      <td>101</td>
+                      <td>Beautiful traditional dress from Kenya</td>
+                      <td>100</td>
+                      <td>10</td>
+                  </tr>
+                  <tr>
+                      <td>002</td>
+                      <td>Kenyan Shirt 1</td>
+                      <td>Men's Fashion</td>
+                      <td>3000 KES</td>
+                      <td>5000 KES</td>
+                      <td>102</td>
+                      <td>Stylish shirt for men, made in Kenya</td>
+                      <td>80</td>
+                      <td>15</td>
+                  </tr>
+                  <tr>
+                      <td>003</td>
+                      <td>Maasai Necklace</td>
+                      <td>Jewelry</td>
+                      <td>1500 KES</td>
+                      <td>2500 KES</td>
+                      <td>103</td>
+                      <td>Authentic Maasai necklace with intricate beadwork</td>
+                      <td>50</td>
+                      <td>5</td>
+                  </tr>
+                  <tr>
+                      <td>004</td>
+                      <td>Kikoy Beach Towel</td>
+                      <td>Beach Accessories</td>
+                      <td>2000 KES</td>
+                      <td>3500 KES</td>
+                      <td>104</td>
+                      <td>Colorful beach towel made from traditional kikoy fabric</td>
+                      <td>120</td>
+                      <td>20</td>
+                  </tr>
+                  <tr>
+                      <td>005</td>
+                      <td>Kenyan Leather Sandals</td>
+                      <td>Footwear</td>
+                      <td>2500 KES</td>
+                      <td>4000 KES</td>
+                      <td>105</td>
+                      <td>Handcrafted leather sandals, perfect for everyday wear</td>
+                      <td>90</td>
+                      <td>10</td>
+                  </tr>
+                  <tr>
+                      <td>006</td>
+                      <td>Kitenge Dress</td>
+                      <td>Women's Clothing</td>
+                      <td>4000 KES</td>
+                      <td>6000 KES</td>
+                      <td>106</td>
+                      <td>Vibrant Kitenge dress, ideal for special occasions</td>
+                      <td>70</td>
+                      <td>10</td>
+                  </tr>
+                  <tr>
+                      <td>007</td>
+                      <td>Kenyan Coffee Beans</td>
+                      <td>Food & Beverages</td>
+                      <td>1000 KES</td>
+                      <td>1500 KES</td>
+                      <td>107</td>
+                      <td>High-quality Arabica coffee beans, locally sourced</td>
+                      <td>200</td>
+                      <td>30</td>
+                  </tr>
+                  <tr>
+                      <td>008</td>
+                      <td>African Print Scarf</td>
+                      <td>Accessories</td>
+                      <td>800 KES</td>
+                      <td>1200 KES</td>
+                      <td>108</td>
+                      <td>Stylish scarf with colorful African print patterns</td>
+                      <td>150</td>
+                      <td>25</td>
+                  </tr>
+                  <tr>
+                      <td>009</td>
+                      <td>Masai Mara Safari Hat</td>
+                      <td>Outdoor Gear</td>
+                      <td>1200 KES</td>
+                      <td>1800 KES</td>
+                      <td>109</td>
+                      <td>Classic safari hat made from durable materials</td>
+                      <td>100</td>
+                      <td>20</td>
+                  </tr>
+                  <tr>
+                      <td>010</td>
+                      <td>Handwoven Basket</td>
+                      <td>Home Decor</td>
+                      <td>1800 KES</td>
+                      <td>2800 KES</td>
+                      <td>110</td>
+                      <td>Artisanal basket, perfect for storage or display</td>
+                      <td>80</td>
+                      <td>15</td>
+                  </tr>
+                  <tr>
+                      <td>011</td>
+                      <td>Kikoi Beach Dress</td>
+                      <td>Beachwear</td>
+                      <td>3500 KES</td>
+                      <td>5000 KES</td>
+                      <td>111</td>
+                      <td>Lightweight and breezy dress made from kikoi fabric</td>
+                      <td>60</td>
+                      <td>10</td>
+                  </tr>
+                  <tr>
+                      <td>012</td>
+                      <td>Maasai Beaded Earrings</td>
+                      <td>Jewelry</td>
+                      <td>600 KES</td>
+                      <td>1000 KES</td>
+                      <td>112</td>
+                      <td>Handcrafted earrings with traditional Maasai beadwork</td>
+                      <td>200</td>
+                      <td>25</td>
+                  </tr>
+                  <tr>
+                      <td>013</td>
+                      <td>Kenyan Leather Belt</td>
+                      <td>Accessories</td>
+                      <td>1500 KES</td>
+                      <td>2500 KES</td>
+                      <td>113</td>
+                      <td>Premium quality leather belt, handmade in Kenya</td>
+                      <td>120</td>
+                      <td>15</td>
+                  </tr>
+                  <tr>
+                      <td>014</td>
+                      <td>African Print Headwrap</td>
+                      <td>Accessories</td>
+                      <td>700 KES</td>
+                      <td>1200 KES</td>
+                      <td>114</td>
+                      <td>Beautiful headwrap with vibrant African print designs</td>
+                      <td>180</td>
+                      <td>20</td>
+                  </tr>
+                  <tr>
+                      <td>015</td>
+                      <td>Maasai Shuka Blanket</td>
+                      <td>Home Decor</td>
+                      <td>2500 KES</td>
+                      <td>4000 KES</td>
+                      <td>115</td>
+                      <td>Authentic Maasai shuka blanket, perfect for picnics or home decor</td>
+                      <td>90</td>
+                      <td>15</td>
+                  </tr>
+                  <tr>
+                      <td>016</td>
+                      <td>Kikoy Beach Bag</td>
+                      <td>Beach Accessories</td>
+                      <td>1800 KES</td>
+                      <td>3000 KES</td>
+                      <td>116</td>
+                      <td>Spacious beach bag made from durable kikoy fabric</td>
+                      <td>100</td>
+                      <td>20</td>
+                  </tr>
+                  <tr>
+                      <td>017</td>
+                      <td>Kenyan Maasai Sandals</td>
+                      <td>Footwear</td>
+                      <td>3000 KES</td>
+                      <td>5000 KES</td>
+                      <td>117</td>
+                      <td>Authentic Maasai sandals with colorful beadwork</td>
+                      <td>80</td>
+                      <td>10</td>
+                  </tr>
+                  <tr>
+                      <td>018</td>
+                      <td>African Print Tote Bag</td>
+                      <td>Accessories</td>
+                      <td>1200 KES</td>
+                      <td>2000 KES</td>
+                      <td>118</td>
+                      <td>Stylish tote bag with African print designs</td>
+                      <td>150</td>
+                      <td>15</td>
+                  </tr>
+                  <tr>
+                      <td>019</td>
+                      <td>Maasai Beaded Bracelet</td>
+                      <td>Jewelry</td>
+                      <td>500 KES</td>
+                      <td>800 KES</td>
+                      <td>119</td>
+                      <td>Handmade bracelet with traditional Maasai beadwork</td>
+                      <td>200</td>
+                      <td>20</td>
+                  </tr>
+                  <tr>
+                      <td>020</td>
+                      <td>Kenyan Kiondo Bag</td>
+                      <td>Accessories</td>
+                      <td>2500 KES</td>
+                      <td>4000 KES</td>
+                      <td>120</td>
+                      <td>Authentic Kiondo bag, woven from sisal and leather</td>
+                      <td>100</td>
+                      <td>10</td>
+                  </tr>
+              </tbody>
+          </table>
+      </div>
+  </div>
+  <!-- End of table -->
+</div>
+<!-- End of product list div -->
+
+
+            <!--- Item list div-->
+            <div class="col-sm-12" id="itemsListDiv">
+                <!-- Item list Table-->
+                <div class="row">
+                    <div class="col-sm-12" id="itemsListTable"></div>
+                </div>
+                <!--end of table-->
+            </div>
+            <!--- End of item list div-->
+
+        </div>
+    </div>
+    <!-- End of row of adding new item form and items list table-->
+</div>
+
+<!--modal to update stock-->
+<div id="updateStockModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center">Update Stock</h4>
+                <div id="stockUpdateFMsg" class="text-center"></div>
+            </div>
+            <div class="modal-body">
+                <form name="updateStockForm" id="updateStockForm" role="form">
+                    <div class="row">
+                        <div class="col-sm-4 form-group-sm">
+                            <label>Item Name</label>
+                            <input type="text" readonly id="stockUpdateItemName" class="form-control">
+                        </div>
+                        
+                        <div class="col-sm-4 form-group-sm">
+                            <label>Item Code</label>
+                            <input type="text" readonly id="stockUpdateItemCode" class="form-control">
+                        </div>
+                        
+                        <div class="col-sm-4 form-group-sm">
+                            <label>Quantity in Stock</label>
+                            <input type="text" readonly id="stockUpdateItemQInStock" class="form-control">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="row">
+                        <div class="col-sm-6 form-group-sm">
+                            <label for="stockUpdateType">Update Type</label>
+                            <select id="stockUpdateType" class="form-control checkField">
+                                <option value="">---</option>
+                                <option value="newStock">New Stock</option>
+                                <option value="deficit">Deficit</option>
+                            </select>
+                            <span class="help-block errMsg" id="stockUpdateTypeErr"></span>
+                        </div>
+                        
+                        <div class="col-sm-6 form-group-sm">
+                            <label for="stockUpdateQuantity">Quantity</label>
+                            <input type="number" id="stockUpdateQuantity" placeholder="Update Quantity"
+                                class="form-control checkField" min="0">
+                            <span class="help-block errMsg" id="stockUpdateQuantityErr"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-12 form-group-sm">
+                            <label for="stockUpdateDescription" class="">Description</label>
+                            <textarea class="form-control checkField" id="stockUpdateDescription" placeholder="Update Description"></textarea>
+                            <span class="help-block errMsg" id="stockUpdateDescriptionErr"></span>
+                        </div>
+                    </div>
+                    
+                    <input type="hidden" id="stockUpdateItemId">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="stockUpdateSubmit">Update</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of modal-->
+
+
+
+<!--modal to edit item-->
+<div id="editItemModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button class="close" data-dismiss="modal">&times;</button>
+                <h4 class="text-center">Edit Item</h4>
+                <div id="editItemFMsg" class="text-center"></div>
+            </div>
+            <div class="modal-body">
+                <form role="form">
+                    <div class="row">
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="itemNameEdit">Item Name</label>
+                            <input type="text" id="itemNameEdit" placeholder="Item Name" autofocus class="form-control checkField">
+                            <span class="help-block errMsg" id="itemNameEditErr"></span>
+                        </div>
+                        
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="itemCode">Item Code</label>
+                            <input type="text" id="itemCodeEdit" class="form-control">
+                            <span class="help-block errMsg" id="itemCodeEditErr"></span>
+                        </div>
+                        
+                        <div class="col-sm-4 form-group-sm">
+                            <label for="unitPrice">Unit Price</label>
+                            <input type="text" id="itemPriceEdit" name="itemPrice" placeholder="Unit Price" class="form-control checkField">
+                            <span class="help-block errMsg" id="itemPriceEditErr"></span>
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="col-sm-12 form-group-sm">
+                            <label for="itemDescriptionEdit" class="">Description (Optional)</label>
+                            <textarea class="form-control" id="itemDescriptionEdit" placeholder="Optional Item Description"></textarea>
+                        </div>
+                    </div>
+                    <input type="hidden" id="itemIdEdit">
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-primary" id="editItemSubmit">Save</button>
+                <button class="btn btn-danger" data-dismiss="modal">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>
+<!--end of modal-->
+      <!-- Main content ends -->
+    </div>
+  </div>
+
+  <footer class="container-fluid text-center hidden-print">
+    <style>
+      p {
+          font-size: 18px; /* Adjust the font size as needed */
+          font-weight: bold; /* Make the text bold */
+          color: #040238; /* Set a darker font color */
+          font-family: 'slab serif', cursive; /* Replace 'Your Floral Font' with the name of your floral font */
+      }
+  
+      a {
+          color: #1d1d1d; /* Set the same font color for the link */
+          text-decoration: none; /* Remove underline from the link */
+      }
+  
+      a:hover {
+          text-decoration: underline; /* Add underline on hover for the link */
+      }
+  
+      .floral-icon {
+          vertical-align: middle; /* Align the icon vertically with the text */
+          margin-right: 5px; /* Add a small margin to separate the icon from the text */
+      }
+  </style>
+  
+  <p>
+      <img src="../static/images/download.jpeg" alt="Floral Icon" class="floral-icon" width="40px"> 
+      <i class="fa fa-copyright"></i>
+      Copyright <a href="#">Josephat Musyoka</a> (2024)
+  </p>
+  
+  </footer>
+
+  <!--Modal to show flash message-->
+  <div id="flashMsgModal" class="modal fade" role="dialog" data-backdrop="static">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header" id="flashMsgHeader">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <center><i id="flashMsgIcon"></i>
+            <font id="flashMsg"></font>
+          </center>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!--Modal end-->
+
+  <!--modal to display transaction receipt when a transaction's ref is clicked on the transaction list table -->
+  <div class="modal fade" role='dialog' data-backdrop='static' id="transReceiptModal">
+    <div class="modal-dialog modal-sm">
+      <div class="modal-content">
+        <div class="modal-header hidden-print">
+          <button class="close" data-dismiss='modal'>&times;</button>
+          <h4 class="text-center">Transaction Receipt</h4>
+        </div>
+        <div class="modal-body" id='transReceipt'></div>
+      </div>
+    </div>
+  </div>
+  <!-- End of modal-->
+
+</body>
+
+</html>
