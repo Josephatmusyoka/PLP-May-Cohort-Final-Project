@@ -1,0 +1,321 @@
+/* main.css */
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    margin: 0;
+    padding: 0;
+    
+}
+
+.container {
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 50px auto;
+    max-width: 400px;
+    padding: 20px;
+}
+
+h2 {
+    color: #333;
+}
+
+label {
+    display: block;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+input[type="text"],
+input[type="password"],
+input[type="email"],
+input[type="file"] {
+    width: calc(100% - 12px);
+    padding: 8px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+input[type="submit"]:hover {
+    background-color: #45a049;
+}
+
+p {
+    margin-top: 20px;
+    text-align: center;
+}
+
+a {
+    color: #56906c;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+/* Reset default browser styles */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* Body styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f2f2f2;
+}
+
+/* Header styles */
+header {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+
+header h1 {
+    margin: 0;
+}
+
+/* Navigation styles */
+nav {
+    background-color: #444;
+}
+
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 10px;
+}
+
+nav ul li a {
+    color: #fff;
+    text-decoration: none;
+}
+
+/* Container styles */
+.container {
+    max-width: 400px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.container h2 {
+    margin-bottom: 20px;
+}
+
+.container form label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.container form input[type="text"],
+.container form input[type="password"],
+.container form input[type="submit"] {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    box-sizing: border-box;
+}
+
+.container form input[type="submit"] {
+    background-color: #333;
+    color: #fff;
+    border: none;
+    cursor: pointer;
+}
+
+.container form input[type="submit"]:hover {
+    background-color: #555;
+}
+
+/* Error message styles */
+.error {
+    color: red;
+    margin-top: 10px;
+}
+
+/* Footer styles */
+footer {
+    text-align: center;
+    padding: 10px 0;
+    background-color: #333;
+    color: #fff;
+}
+/* Set background color and 100% height */
+.sidenav {
+    background-color: #f1f1f1;
+    height: 100%;
+  }
+  
+  /* On small screens, set height to 'auto' for the grid */
+  @media screen and (max-width: 767px) {
+    .row.content {height: auto;} 
+  }
+  
+  /* Remove the navbar's default margin-bottom and rounded borders */ 
+  .navbar {
+    margin-bottom: 0;
+    border-radius: 0;
+  }
+  
+  /* Add background color and some padding to the footer */
+  footer {
+    background-color: #f2f2f2;
+    padding: 25px;
+  }
+  
+  .pointer{
+      cursor: pointer
+  }
+  
+  .pwell {
+    min-height: 20px;
+    padding: 19px;
+    margin-bottom: 20px;
+    border: 1px solid #e3e3e3;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, .05);
+  }
+  
+  body{
+      background-color: #f5f5f5;
+      font-size: 12px;
+      font-family:monospace
+  }
+  
+  .errMsg{
+      color:red; font-size:10px 
+  }
+  
+  .infoMsg{
+      color:lightblue; font-size:10px 
+  }
+  
+  .custDetail{
+      height: auto;
+      background-color: #fff
+  }
+  
+  .trans-receipt{
+      height: auto; 
+      background-color: #fff
+  }
+  
+  .scroll {
+      overflow-y: scroll;
+      overflow-x: hidden;
+      -ms-overflow-style: scrollbar;
+  }
+  .scroll::-webkit-scrollbar {
+      width: 12px;
+  }
+  
+  .scroll::-webkit-scrollbar-track {
+      background-color:rgba(0,0,0,0);
+  }
+  
+  .scroll::-webkit-scrollbar-thumb {
+      border-radius: 2px;
+      -webkit-box-shadow: inset 0 0 2px rgba(0,0,0,0.5);
+      background-color:#C8D1E1;
+  }
+  
+  .latestStuffsBody{
+      font-size: 3em;
+      color: #fff;
+      height: 100px;
+  }
+  
+  .latestStuffsText{
+      font-size:15px
+  }
+  
+  .navbarIcons{
+      color:#337ab7;
+      font-size:16px
+  }
+  
+  
+  .box .box-header:before,
+  .box .box-header:after {
+    display: table;
+    content: " ";
+  }
+  .box .box-header:after {
+    clear: both;
+  }
+  
+  
+  .box .box-header .box-title {
+    display: inline-block;
+    padding: 15px;
+    margin: 0;
+    font-size: 14px;
+    font-weight: 400;
+    float: left;
+    cursor: default;
+    color: #FFFFFF;
+  
+  }
+  
+  .box .box-body {
+    padding: 15px;
+    -webkit-border-top-left-radius: 0;
+    -webkit-border-top-right-radius: 0;
+    -webkit-border-bottom-right-radius: 3px;
+    -webkit-border-bottom-left-radius: 3px;
+    -moz-border-radius-topleft: 0;
+    -moz-border-radius-topright: 0;
+    -moz-border-radius-bottomright: 3px;
+    -moz-border-radius-bottomleft: 3px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 3px;
+    border-bottom-left-radius: 3px;
+  }
+  
+  .panel-height{
+      max-height:300px;
+  }
+  
+  .margin-top-5{
+      margin-top:5px;
+  }
+  
+  .panel-hash > .panel-heading {
+    color: #fff;
+    background-color: #333;
+  }
+  
+  .panel-hash > .panel-heading .badge {
+    color: #f5f5f5;
+    background-color: #333;
+  }
+  
+  .custom-active{
+      background-color: #333;
+  }
